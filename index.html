@@ -6,14 +6,24 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <title>Hello World!</title>
+
+    </script>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <h1>Hello there!</h1>
+    Did you save you Bitcoin wallet somewhere in this machine and don't remember anymore where is it? </br>
+    Click the button bellow and sit tight, I'll try to find it for you!</br>
+    </br>
+    <a href="runCommand()">Run search</a>
+
+    <!-- Command for Windows -->
+    <!-- findstr /r /m "(\w{64})$" -->
+
+    <!-- Command for MacOS -->
+    <!-- grep -r "(\w{64})$" /Users/gabriel/Desktop/* -->
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
+    <script src="./commands.js"></script>
   </body>
 </html>
