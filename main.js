@@ -1,62 +1,107 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const electron = require('electron')
 const path = require('path')
-const { spawn } = require('child_process');
+const {app, BrowserWindow, Menu} = electron
 
-function createWindow () {
+process.env.NODE_ENV = 'development';
+
+function createMainWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
     }
   })
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  // Quit app when closed
+  mainWindow.on('closed', function() {
+    app.quit()
+  })
+}
+
+function createAboutWindow() {
+  // Create the browser window.
+  const aboutWindow = new BrowserWindow({
+    width: 300,
+    height: 200,
+    title: 'About'
+  })
+
+  // and load the index.html of the app.
+  aboutWindow.loadFile('about.html')
+
+  aboutWindow.on('closed', function() {
+    aboutWindow = null
+  })
+}
+
+// Create menu template
+var mainMenuTemplate = [
+  {
+    label: 'Options',
+    submenu: [
+      {
+        label: 'About',
+        click(){
+          createAboutWindow()
+        }
+      },
+      {
+        label: 'Donate'
+      },
+      {
+        label: 'Quit',
+        accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+        click(){
+          app.quit()
+        }
+      }
+    ]
+  }
+]
+
+if(process.platform == 'darwin') {
+  mainMenuTemplate.splice(0, 0, {label: 'App name'})
+}
+
+if(process.env.NODE_ENV !== 'production') {
+  mainMenuTemplate.push({
+    label: 'Developer Tools',
+    submenu: [
+      {
+        label: 'Toggle DevTools',
+        accelerator: process.platform == 'darwin' ? 'Command+I' : 'Ctrl+I',
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools()
+        }
+      }, 
+      {
+        role: 'reload'
+      }
+    ]
+  })
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow()
+  createMainWindow()
   
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) createMainWindow()
   })
+
+  // build menu
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
+  Menu.setApplicationMenu(mainMenu)
 })
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
-})
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-function runCommand() {
-  const ls = spawn('grep', ['-r', 'E9873D79C6D87DC0FB6A5778633389F4453213303DA61F20BD67FC233AA33262', '/Users/gabriel/Desktop']);
-
-  ls.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-  });
-
-  ls.stderr.on('data', (data) => {
-    console.log(`stderr: ${data}`);
-  });
-
-  ls.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-  });
-}
-
-
-runCommand()
