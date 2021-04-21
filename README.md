@@ -1,4 +1,7 @@
 # find-my-btc-wallet
+
+ALERT: This project is currently under development, it's not recommended for personal use it yet!
+
 This app will be able to find long-lost BTC Wallets and keys that you might have lost in your computer. Built using electron and compatible with MacOS, Windows and Linux.
 
 > The idea for this project came while browsing on reddit and coming accross [this post](https://www.reddit.com/r/BitcoinBeginners/comments/lzwvvr/i_mined_10_bitcoins_in_the_early_days). inspired by the comments and the nice solutions given for multiple platforms, I want to try to make a more user-friendly approach, and allow anyone to run a big and heavy grep function just by pressing a button!
