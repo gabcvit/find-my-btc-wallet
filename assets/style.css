@@ -1,0 +1,14 @@
+body {
+  background-color: #3a3a3a;
+  padding: 30px;
+}
+
+
+h1, a, p, span {
+  color: white;
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
