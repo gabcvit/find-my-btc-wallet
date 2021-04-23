@@ -1,9 +1,11 @@
 const { spawn } = require('child_process');
 
-const resultWrapper = document.querySelector('.result-wrapper')
+const mainLog = document.querySelector('.main-log')
+
 function printResult(data) {
-const itemText = document.createTextNode(data)
-resultWrapper.appendChild(itemText)
+  let newTextToAdd = data + "------------------------\n\n"
+  const itemText = document.createTextNode(newTextToAdd)
+  mainLog.appendChild(itemText)
 }
 
 const runSearchButton = document.querySelector('.run-search')
@@ -13,15 +15,16 @@ const cleanLogButton = document.querySelector('.clean-log')
 cleanLogButton.addEventListener('click', cleanLog)
 
 function cleanLog(e) {
-resultWrapper.innerHTML = ''
+  mainLog.innerHTML = ''
 }
 
 function runSearch(e) {
   e.preventDefault()
 
+  cleanLog(null)
 
-  // runFileNameSearch() // this function still needs to be finished before adding it to the search steps
-  runPrivateKeyRegexSearch()
+  runFileNameSearch() // this function still needs to be finished before adding it to the search steps
+  // runPrivateKeyRegexSearch()
 }
 
 function runFileNameSearch() {
@@ -32,7 +35,6 @@ function runFileNameSearch() {
 
   ls.stdout.on('data', (data) => {
     console.log(`stdout:`);
-    cleanLog(null)
 
     data = "Yay! I found some files named " + fileNameToFind + " on the following locations: \n\n" + data + "\n\n"
     printResult(data)
@@ -40,7 +42,6 @@ function runFileNameSearch() {
 
   ls.stderr.on('data', (data) => {
     console.log(`stderr:`);
-    cleanLog(null)
     printResult(data)
   });
 
@@ -48,7 +49,7 @@ function runFileNameSearch() {
   // code 1: didn't find anything
   ls.on('close', (code) => {
     if(code == 1) {
-      cleanLog(null)
+
       printResult("Uh-oh! I didn't find anything :(")
     }
     console.log(`child process exited with code ${code}`);
@@ -63,7 +64,6 @@ function runPrivateKeyRegexSearch() {
 
   ls.stdout.on('data', (data) => {
     console.log(`stdout: ${data}`);
-    cleanLog(null)
 
     data = "Yay! I found some files named " + expressionToFind + " on the following locations: \n\n" + data + "\n\n"
     printResult(data)
@@ -71,7 +71,6 @@ function runPrivateKeyRegexSearch() {
 
   ls.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`);
-    cleanLog(null)
     printResult(data)
   });
 
@@ -79,7 +78,6 @@ function runPrivateKeyRegexSearch() {
   // code 1: didn't find anything
   ls.on('close', (code) => {
     if(code == 1) {
-      cleanLog(null)
       printResult("Uh-oh! I didn't find anything :(")
     }
     console.log(`child process exited with code ${code}`);
