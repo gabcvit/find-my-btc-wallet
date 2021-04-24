@@ -27,3 +27,7 @@ form {
   text-align: left;
   font-size: 12px;
 }
+
+.result-wrapper p.positive-text {
+  color: #0EB777
+}

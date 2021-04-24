@@ -1,11 +1,20 @@
 const { spawn } = require('child_process');
+var path = require('path'), fs=require('fs');
 
 const mainLog = document.querySelector('.main-log')
 
-function printResult(data) {
-  let newTextToAdd = data + "------------------------\n\n"
+function printResult(data, isPositive = false) {
+  let newTextToAdd = data
+
   const itemText = document.createTextNode(newTextToAdd)
-  mainLog.appendChild(itemText)
+  const paragraphElementToInsert = document.createElement("P")
+
+  if(isPositive) {
+    paragraphElementToInsert.classList.add('positive-text')
+  }
+
+  paragraphElementToInsert.appendChild(itemText)
+  mainLog.appendChild(paragraphElementToInsert)
 }
 
 const runSearchButton = document.querySelector('.run-search')
@@ -30,31 +39,32 @@ function runSearch(e) {
 function runFileNameSearch() {
   const fileNameToFind =  "wallet.dat"
   const defaultBitcoinAddress = process.platform == 'darwin' ? '/Users/gabriel/Library/Application\ Support/Bitcoin/' : 'C:\Users\YourUserName\Appdata\Roaming\Bitcoin (Vista and 7)' // based on source: https://en.bitcoin.it/wiki/Data_directory
-  const ls = spawn('find', [defaultBitcoinAddress, ".", fileNameToFind]);
-  printResult("Searching for "+ fileNameToFind +"... please wait")
+  printResult('Searching for file with the name "'+ fileNameToFind +'". Please wait...')
 
-  ls.stdout.on('data', (data) => {
-    console.log(`stdout:`);
+  fromDir(defaultBitcoinAddress, fileNameToFind)
 
-    data = "Yay! I found some files named " + fileNameToFind + " on the following locations: \n\n" + data + "\n\n"
-    printResult(data)
-  });
-
-  ls.stderr.on('data', (data) => {
-    console.log(`stderr:`);
-    printResult(data)
-  });
-
-  // code 0: Successful
-  // code 1: didn't find anything
-  ls.on('close', (code) => {
-    if(code == 1) {
-
-      printResult("Uh-oh! I didn't find anything :(")
-    }
-    console.log(`child process exited with code ${code}`);
-  });
+  printResult("Finishing search for file name")
 }
+
+function fromDir(startPath,filter) {
+  if (!fs.existsSync(startPath)){
+      console.log("no directory", startPath);
+      return;
+  }
+
+  var files = fs.readdirSync(startPath);
+  for(var i = 0; i < files.length; i++) {
+      var filename = path.join(startPath,files[i]);
+      var stat = fs.lstatSync(filename);
+      if(stat.isDirectory()) {
+        fromDir(filename,filter); //recursive search
+      }
+      else if(filename.indexOf(filter)>=0) {
+        printResult("Found wallet.dat file!:" + filename, true)
+        //console.log('-- found: ',filename);
+      };
+  };
+};
 
 function runPrivateKeyRegexSearch() {
   const expressionToFind =  `${'"(\w{64})$"'}`
