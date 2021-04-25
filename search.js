@@ -33,7 +33,7 @@ function runSearch(e) {
   cleanLog(null)
 
   runFileNameSearch() // this function still needs to be finished before adding it to the search steps
-  // runPrivateKeyRegexSearch()
+  runPrivateKeyRegexSearch()
 }
 
 function runFileNameSearch() {
@@ -75,20 +75,19 @@ function runPrivateKeyRegexSearch() {
   ls.stdout.on('data', (data) => {
     console.log(`stdout: ${data}`);
 
-    data = "Yay! I found some files named " + expressionToFind + " on the following locations: \n\n" + data + "\n\n"
+    data = "I found a 64 char long private key on a certain file located in: " + data + "\n\n, you might want to check if that file is a wallet file :)"
     printResult(data)
   });
 
   ls.stderr.on('data', (data) => {
     console.log(`stderr: ${data}`);
-    printResult(data)
   });
 
   // code 0: Successful
   // code 1: didn't find anything
   ls.on('close', (code) => {
     if(code == 1) {
-      printResult("Uh-oh! I didn't find anything :(")
+      printResult("Finished looking for 64 char long private keys, nothing was found yet")
     }
     console.log(`child process exited with code ${code}`);
   });
