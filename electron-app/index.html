@@ -7,29 +7,26 @@
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
     <title>Hello World!</title>
 
-    <link href="./assets/style.css" rel="stylesheet" >
-
+    <link href="./src/css/style.css" rel="stylesheet" >
     </script>
   </head>
   <body>
-    <h1>Hello there!</h1>
-    <p>
-      Did you save you Bitcoin wallet somewhere in this machine and don't remember anymore where is it? </br>
-      Click the button bellow and sit tight, I'll try to find it for you!</br>
-    </br>
-    </p>
-
+    <div>
+      <h1>Hello there!</h1>
+      <p>Did you save you Bitcoin wallet somewhere in this machine?</p>
+      <p>Click the button bellow and sit tight, I&apos;ll try to find it for you!</p>
+    </div>
     <form>
-      <button class="run-search">Run search</button>
-      <button class="clean-log">Clean Log</button>
+      <button type="button" class="run-search">Run search</button>
+      <button type="button" class="clean-log">Clean Log</button>
     </form>
-
+    
     <div class="result-wrapper">
       <p class="main-log">>_</p>
     </div>
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
-    <script src="./search.js"></script>
+    <script src="./src/controllers/SearchController.js"></script>
   </body>
 </html>

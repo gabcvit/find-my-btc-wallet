@@ -35,7 +35,7 @@ function createAboutWindow() {
   })
 
   // and load the index.html of the app.
-  aboutWindow.loadFile('about.html')
+  aboutWindow.loadFile('src/pages/about.html')
 
   aboutWindow.on('closed', function() {
     aboutWindow = null

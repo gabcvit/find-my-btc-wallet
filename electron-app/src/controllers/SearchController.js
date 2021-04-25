@@ -1,27 +1,28 @@
 const { spawn } = require('child_process');
-var path = require('path'), fs=require('fs');
+const path = require('path')
+const fs = require('fs')
 
+// Constants
+const FILE_EXTENSION_TO_FIND = '.dat'
+const BTC_WALLET_MAGIC_BYTES = '6231050009000000'
 const mainLog = document.querySelector('.main-log')
+const runSearchButton = document.querySelector('.run-search')
+const cleanLogButton = document.querySelector('.clean-log')
 
+// Prepare click Listeners
+runSearchButton.addEventListener('click', runSearch)
+cleanLogButton.addEventListener('click', cleanLog)
+
+// Functions
 function printResult(data, isPositive = false) {
-  let newTextToAdd = data
-
-  const itemText = document.createTextNode(newTextToAdd)
+  const itemText = document.createTextNode(data)
   const paragraphElementToInsert = document.createElement("P")
-
   if(isPositive) {
     paragraphElementToInsert.classList.add('positive-text')
   }
-
   paragraphElementToInsert.appendChild(itemText)
   mainLog.appendChild(paragraphElementToInsert)
 }
-
-const runSearchButton = document.querySelector('.run-search')
-runSearchButton.addEventListener('click', runSearch)
-
-const cleanLogButton = document.querySelector('.clean-log')
-cleanLogButton.addEventListener('click', cleanLog)
 
 function cleanLog(e) {
   mainLog.innerHTML = ''
@@ -29,20 +30,30 @@ function cleanLog(e) {
 
 function runSearch(e) {
   e.preventDefault()
-
   cleanLog(null)
-
-  runFileNameSearch() // this function still needs to be finished before adding it to the search steps
-  runPrivateKeyRegexSearch()
+  runFileExtensionSearch()
+  //runPrivateKeyRegexSearch()
 }
 
-function runFileNameSearch() {
-  const fileNameToFind =  "wallet.dat"
+function checkMagicByteForFile(fileLocation) {
+  fs.open(fileLocation, 'r', function(status, fd) {
+    if (status) {
+      // console.log(status.message);
+      return;
+    }
+    var buffer = Buffer.alloc(50);
+    fs.read(fd, buffer, 0, 50, 0, function(err, num) {
+      if(buffer.includes(BTC_WALLET_MAGIC_BYTES, 0, "hex")) {
+        printResult("Found a BTC wallet file: " + fileLocation, true)
+      }
+    });
+  });
+}
+
+function runFileExtensionSearch() {
   const defaultBitcoinAddress = process.platform == 'darwin' ? '/Users/gabriel/Library/Application\ Support/Bitcoin/' : 'C:\Users\YourUserName\Appdata\Roaming\Bitcoin (Vista and 7)' // based on source: https://en.bitcoin.it/wiki/Data_directory
-  printResult('Searching for file with the name "'+ fileNameToFind +'". Please wait...')
-
-  fromDir(defaultBitcoinAddress, fileNameToFind)
-
+  printResult('Searching for files with the extension "'+ FILE_EXTENSION_TO_FIND +'". Please wait...')
+  fromDir(defaultBitcoinAddress, FILE_EXTENSION_TO_FIND)
   printResult("Finishing search for file name")
 }
 
@@ -60,8 +71,8 @@ function fromDir(startPath,filter) {
         fromDir(filename,filter); //recursive search
       }
       else if(filename.indexOf(filter)>=0) {
-        printResult("Found wallet.dat file!:" + filename, true)
-        //console.log('-- found: ',filename);
+        checkMagicByteForFile(filename)
+        // console.log('-- found: ',filename);
       };
   };
 };
