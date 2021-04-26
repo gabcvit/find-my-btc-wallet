@@ -1,10 +1,9 @@
-const { spawn } = require('child_process');
+import { FILE_EXTENSION_TO_FIND, BTC_WALLET_MAGIC_BYTES, DIRECTORY_TO_SEARCH } from '../constants/SearchConstants.js'
+const { spawn } = require('child_process')
 const path = require('path')
 const fs = require('fs')
 
-// Constants
-const FILE_EXTENSION_TO_FIND = '.dat'
-const BTC_WALLET_MAGIC_BYTES = '6231050009000000'
+// DOM Elements from index.html
 const mainLog = document.querySelector('.main-log')
 const runSearchButton = document.querySelector('.run-search')
 const cleanLogButton = document.querySelector('.clean-log')
@@ -51,20 +50,25 @@ function checkMagicByteForFile(fileLocation) {
 }
 
 function runFileExtensionSearch() {
-  const defaultBitcoinAddress = process.platform == 'darwin' ? '/Users/gabriel/Library/Application\ Support/Bitcoin/' : 'C:\Users\YourUserName\Appdata\Roaming\Bitcoin (Vista and 7)' // based on source: https://en.bitcoin.it/wiki/Data_directory
   printResult('Searching for files with the extension "'+ FILE_EXTENSION_TO_FIND +'". Please wait...')
-  fromDir(defaultBitcoinAddress, FILE_EXTENSION_TO_FIND)
+  fromDir(DIRECTORY_TO_SEARCH, FILE_EXTENSION_TO_FIND)
   printResult("Finishing search for file name")
 }
 
-function fromDir(startPath,filter) {
+function fromDir(startPath, filter) {
   if (!fs.existsSync(startPath)){
-      console.log("no directory", startPath);
+      // console.log("no directory", startPath);
       return;
   }
 
-  var files = fs.readdirSync(startPath);
-  for(var i = 0; i < files.length; i++) {
+  try {
+    var files = fs.readdirSync(startPath);
+  } catch(e) {
+    // console.log('customError', e)
+  }
+
+  if(files) {
+    for(var i = 0; i < files.length; i++) {
       var filename = path.join(startPath,files[i]);
       var stat = fs.lstatSync(filename);
       if(stat.isDirectory()) {
@@ -75,12 +79,12 @@ function fromDir(startPath,filter) {
         // console.log('-- found: ',filename);
       };
   };
+  }
 };
 
 function runPrivateKeyRegexSearch() {
   const expressionToFind =  `${'"(\w{64})$"'}`
-  const defaultBitcoinAddress = process.platform == 'darwin' ? '/Users/gabriel/Library/Application Support/Bitcoin/' : 'C:\Users\YourUserName\Appdata\Roaming\Bitcoin (Vista and 7)' // based on source: https://en.bitcoin.it/wiki/Data_directory
-  const ls = spawn('grep', ['-r', expressionToFind, defaultBitcoinAddress]);
+  const ls = spawn('grep', ['-r', expressionToFind, DIRECTORY_TO_SEARCH]);
   printResult("Searching for "+ expressionToFind +"... please wait")
 
   ls.stdout.on('data', (data) => {
