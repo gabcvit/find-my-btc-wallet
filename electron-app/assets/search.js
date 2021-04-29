@@ -1,4 +1,4 @@
-import { FILE_EXTENSION_TO_FIND, BTC_WALLET_MAGIC_BYTES, DIRECTORY_TO_SEARCH } from '../constants/SearchConstants.js'
+import { FILE_EXTENSION_TO_FIND, BTC_WALLET_MAGIC_BYTES, DIRECTORY_TO_SEARCH } from './constants.js'
 const { spawn } = require('child_process')
 const path = require('path')
 const fs = require('fs')

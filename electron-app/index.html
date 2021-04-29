@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
-    <title>Hello World!</title>
+    <meta charset="utf-8">
 
-    <link href="./src/css/style.css" rel="stylesheet" >
-    </script>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/section.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="import" href="sections/about.html">
+    <link rel="import" href="sections/search.html">
   </head>
   <body>
-    <div>
-      <h1>Hello there!</h1>
-      <p>Did you save you Bitcoin wallet somewhere in this machine?</p>
-      <p>Click the button bellow and sit tight, I&apos;ll try to find it for you!</p>
-    </div>
-    <form>
-      <button type="button" class="run-search">Run search</button>
-      <button type="button" class="clean-log">Clean Log</button>
-    </form>
-    
-    <div class="result-wrapper">
-      <p class="main-log">>_</p>
-    </div>
+    <nav class="nav js-nav">
+      <header class="nav-header">
+        <h1 class="nav-title">Find my BTC Wallet</h1>
+      </header>
+  
+      <div class="nav-item u-category-search">
+        <button type="button" id="button-search" data-section="search" class="nav-button">Search</button>
+      </div>
+
+      <div class="nav-item u-category-about">
+        <button type="button" id="button-about" data-section="about" class="nav-button">About</button>
+      </div>
+  
+    </nav>
+
+    <main class="content js-content"></main>
 
     <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-    <script type="module" src="./src/constants/SearchConstants.js"></script>
-    <script type="module" src="./src/controllers/SearchController.js"></script>
+    <script>
+      require('./renderer')
+      require('./assets/imports')
+      require('./assets/nav')
+    </script>
+    <script type="module" src="./assets/search.js"></script>
+    <script type="module" src="./assets/constants.js"></script>
   </body>
 </html>
