@@ -3,6 +3,15 @@ section {
   opacity: 0;
   transform: translateX(-20px);
   transition: visibility 0s .12s linear , opacity .12s ease-in, transform .12s ease-in;
+
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  bottom: 16px;
+  width: calc(100% - 380px - 16px);
+
+  background-color: #232228;
+  border-radius: 68px;
 }
 
 section.is-shown {
@@ -10,4 +19,8 @@ section.is-shown {
   opacity: 1;
   transform: translateX(0);
   transition: visibility 0s 0s linear , opacity .36s ease-out, transform .36s ease-out;
+}
+
+template .task-template {
+  
 }

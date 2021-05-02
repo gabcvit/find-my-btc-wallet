@@ -1,0 +1,28 @@
+nav {
+  width: 380px;
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 0px;
+}
+
+nav header {
+  height: 400px;
+}
+
+.nav-item {
+  margin: 25px 0px;
+  
+}
+
+.nav-item button {
+  background-color: black;
+  border: 0px;
+  color: white;
+  font-size: 24px;
+  padding-left: 20px;
+}
+
+.nav-item button:hover {
+  cursor: pointer;
+}
