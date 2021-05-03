@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/section.css">
     <link rel="stylesheet" href="assets/css/nav.css">
-    <link rel="stylesheet" href="assets/css/style.css">
 
     <link rel="import" href="sections/about.html">
     <link rel="import" href="sections/search.html">
@@ -14,30 +13,30 @@
     <link rel="import" href="sections/donate.html">
     <link rel="import" href="sections/settings.html">
   </head>
-  <body>
+  <body class="bg-black">
     <nav class="nav js-nav">
       <header class="nav-header">
         
       </header>
   
       <div class="nav-item u-category-search">
-        <button type="button" id="button-search" data-section="search" class="nav-button">Search</button>
+        <button type="button" id="button-search" data-section="search" class="nav-button bg-black">Search</button>
       </div>
 
       <div class="nav-item u-category-about">
-        <button type="button" id="button-about" data-section="about" class="nav-button">About</button>
+        <button type="button" id="button-about" data-section="about" class="nav-button bg-black">About</button>
       </div>
 
       <div class="nav-item u-category-logs">
-        <button type="button" id="button-logs" data-section="logs" class="nav-button">Logs</button>
+        <button type="button" id="button-logs" data-section="logs" class="nav-button bg-black">Logs</button>
       </div>
 
       <div class="nav-item u-category-donate">
-        <button type="button" id="button-donate" data-section="donate" class="nav-button">Donate</button>
+        <button type="button" id="button-donate" data-section="donate" class="nav-button bg-black">Donate</button>
       </div>
 
       <div class="nav-item u-category-settings">
-        <button type="button" id="button-settings" data-section="settings" class="nav-button">Settings</button>
+        <button type="button" id="button-settings" data-section="settings" class="nav-button bg-black">Settings</button>
       </div>
   
     </nav>
@@ -47,10 +46,10 @@
     <!-- You can also require other files to run in this process -->
     <script>
       require('./renderer')
-      require('./assets/imports')
-      require('./assets/nav')
     </script>
     <script type="module" src="./assets/search.js"></script>
+    <script type="module" src="./assets/imports.js"></script>
+    <script type="module" src="./assets/nav.js"></script>
     <script type="module" src="./assets/constants.js"></script>
   </body>
 </html>

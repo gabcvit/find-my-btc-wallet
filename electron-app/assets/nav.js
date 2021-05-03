@@ -1,7 +1,5 @@
-
-
 document.body.addEventListener('click', (event) => {
-  console.log('click', event)
+  console.log('click', event.target.dataset)
   if (event.target.dataset.section) {
     handleSectionTrigger(event)
   } else if (event.target.dataset.modal) {

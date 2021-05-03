@@ -1,0 +1,32 @@
+body {
+  padding: 30px;
+}
+
+h1, a, p, span {
+  color: white;
+}
+
+
+.bg-black {
+  background-color: #0C0B10;
+}
+
+.color-black {
+  color: #0C0B10;
+}
+
+.bg-green {
+  background-color: #04C0A9;
+}
+
+.color-green {
+  color: #04C0A9;
+}
+
+.bg-salmon {
+  background-color: #F07769;
+}
+
+.color-salmon {
+  color: #F07769;
+}

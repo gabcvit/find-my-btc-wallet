@@ -1,17 +1,22 @@
 <template class="task-template">
   <section id="search-section" class="section js-section u-category-communication">
     <div>
-      <h1>Hello there!</h1>
-      <p>Did you save you Bitcoin wallet somewhere in this machine?</p>
-      <p>Click the button bellow and sit tight, I'll try to find it for you!</p>
+      <h1>BTC Wallet Finder</h1>
+      <div class="filter-wrapper yellow">
+        <p>Search for all .dat files under the following directories:</p>
+      </div>
+      <div class="filter-wrapper green">
+        <p>Run "findstr / grep" command under the following directories:</p>
+      </div>
     </div>
     <form>
-      <button type="button" class="run-search">Run search</button>
-      <button type="button" class="clean-log">Clean Log</button>
+      <button type="button" class="search-button pretty-button bg-green">Run search</button>
+      <button type="button" class="force-stop-button pretty-button bg-salmon">Force stop</button>
     </form>
     
     <div class="result-wrapper">
       <p class="main-log">>_</p>
     </div>
   </section>
+  
 </template>

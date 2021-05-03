@@ -3,16 +3,21 @@ const { spawn } = require('child_process')
 const path = require('path')
 const fs = require('fs')
 
-// DOM Elements from index.html
-const mainLog = document.querySelector('.main-log')
-const runSearchButton = document.querySelector('.run-search')
-const cleanLogButton = document.querySelector('.clean-log')
+var mainLog = null
+var runSearchButton = null
+var forceStopButton = null
 
-// Prepare click Listeners
-runSearchButton.addEventListener('click', runSearch)
-cleanLogButton.addEventListener('click', cleanLog)
+export function initializeSearchElements() {
+  // DOM Elements
+  mainLog = document.querySelector('.main-log')
+  runSearchButton = document.querySelector('.search-button')
+  forceStopButton = document.querySelector('.force-stop-button')
 
-// Functions
+  // Prepare click Listeners
+  runSearchButton.addEventListener('click', runSearch)
+  forceStopButton.addEventListener('click', cleanLog)
+}
+
 function printResult(data, isPositive = false) {
   const itemText = document.createTextNode(data)
   const paragraphElementToInsert = document.createElement("P")
@@ -27,7 +32,7 @@ function cleanLog(e) {
   mainLog.innerHTML = ''
 }
 
-function runSearch(e) {
+export function runSearch(e) {
   e.preventDefault()
   cleanLog(null)
   runFileExtensionSearch()
