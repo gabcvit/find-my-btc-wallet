@@ -3,13 +3,13 @@ const { spawn } = require('child_process')
 const path = require('path')
 const fs = require('fs')
 
-var mainLog = null
+var foundWalletsWrapper = null
 var runSearchButton = null
 var forceStopButton = null
 
 export function initializeSearchElements() {
   // DOM Elements
-  mainLog = document.querySelector('.main-log')
+  foundWalletsWrapper = document.querySelector('.found-wallets-wrapper')
   runSearchButton = document.querySelector('.search-button')
   forceStopButton = document.querySelector('.force-stop-button')
 
@@ -25,11 +25,11 @@ function printResult(data, isPositive = false) {
     paragraphElementToInsert.classList.add('positive-text')
   }
   paragraphElementToInsert.appendChild(itemText)
-  mainLog.appendChild(paragraphElementToInsert)
+  foundWalletsWrapper.appendChild(paragraphElementToInsert)
 }
 
 function cleanLog(e) {
-  mainLog.innerHTML = ''
+  foundWalletsWrapper.innerHTML = ''
 }
 
 export function runSearch(e) {

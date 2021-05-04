@@ -14,6 +14,7 @@ section {
   background-color: #232228;
   border-radius: 68px;
   padding: 40px 100px;
+  overflow-y: scroll;
 }
 
 section.is-shown {
@@ -62,12 +63,7 @@ section p {
 }
 
 .result-wrapper {
-  padding: 20px;
-  border-radius: 7px;
-  border: solid 1px gray;
   margin-top: 40px;
-  background-color: #292929 ;
-  overflow-y: scroll;
   max-height: 400px;
 }
 
