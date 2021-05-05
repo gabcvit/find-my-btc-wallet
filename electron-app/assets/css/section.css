@@ -64,16 +64,45 @@ section p {
 
 .result-wrapper {
   margin-top: 40px;
-  max-height: 400px;
+  flex-direction: row;
+  display: inline;
+  flex-wrap: wrap;
 }
 
-.result-wrapper p {
-  text-align: left;
-  font-size: 12px;
+.found-wallet-wrapper {
+  padding: 20px;
+  background: linear-gradient(135deg, #493A24, #1B1A1F,#1B1A1F,#1B1A1F) padding-box, /* this is the background gradient */
+  linear-gradient(135deg, #FFBA50, #1B1A1F,#1B1A1F,#1B1A1F) border-box; /* this is the border gradient */
+  box-shadow: 30px 50px 50px 0px #131217;
+  background-color: #1B1A1F;
+  border: 1px solid transparent;
+  border-radius:28px;
+  width: 260px;
+  text-align: center;
+  margin: 10px;
 }
 
-.result-wrapper p.positive-text {
-  color: #0EB777
+.found-wallet-icon {
+  width: 90px;
+  height: 90px;
+}
+
+.found-wallet-wrapper p {
+  text-align: center;
+  color: white;
+}
+
+p.found-wallet-title {
+  font-size: 24px;
+}
+
+p.found-wallet-location {
+  font-size: 10px;
+  color: #79797C;
+}
+
+p.found-wallet-button {
+  font-size: 16px;
 }
 
 /* LOGS SECTION */

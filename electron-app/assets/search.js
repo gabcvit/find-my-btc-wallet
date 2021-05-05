@@ -3,19 +3,54 @@ const { spawn } = require('child_process')
 const path = require('path')
 const fs = require('fs')
 
-var foundWalletsWrapper = null
+var resultWrapper = null
 var runSearchButton = null
 var forceStopButton = null
 
 export function initializeSearchElements() {
   // DOM Elements
-  foundWalletsWrapper = document.querySelector('.found-wallets-wrapper')
+  resultWrapper = document.querySelector('.result-wrapper')
   runSearchButton = document.querySelector('.search-button')
   forceStopButton = document.querySelector('.force-stop-button')
 
   // Prepare click Listeners
   runSearchButton.addEventListener('click', runSearch)
   forceStopButton.addEventListener('click', cleanLog)
+}
+
+function printIconInFoundWallet(foundWalletWrapperElement) {
+  const btcIconImgElement = document.createElement("IMG")
+  btcIconImgElement.src = "assets/img/btc_icon.png"
+  btcIconImgElement.classList.add('found-wallet-icon')
+  foundWalletWrapperElement.appendChild(btcIconImgElement)
+  return foundWalletWrapperElement
+}
+
+function printTextNodesInFoundWallet(fileLocation, foundWalletWrapperElement) {
+  const textNodesToAdd = [
+    {text: 'BTC Wallet found!',   class: 'found-wallet-title'},
+    {text: fileLocation,          class: 'found-wallet-location'},
+    {text: 'Click here to open',  class: 'found-wallet-button'},
+  ]
+
+  textNodesToAdd.forEach(singleTextNodeToAdd => {
+    const textNome = document.createTextNode(singleTextNodeToAdd.text)
+    const paragraph = document.createElement("P")
+    paragraph.appendChild(textNome)
+    paragraph.classList.add(singleTextNodeToAdd.class)
+    foundWalletWrapperElement.appendChild(paragraph)
+  })
+
+  return foundWalletWrapperElement
+}
+
+function printFoundWallet(fileLocation) {
+  var foundWalletWrapperElement = document.createElement("div")
+  foundWalletWrapperElement.classList.add('found-wallet-wrapper')
+  foundWalletWrapperElement = printIconInFoundWallet(foundWalletWrapperElement)
+  foundWalletWrapperElement = printTextNodesInFoundWallet(fileLocation, foundWalletWrapperElement)
+
+  resultWrapper.appendChild(foundWalletWrapperElement)
 }
 
 function printResult(data, isPositive = false) {
@@ -25,11 +60,11 @@ function printResult(data, isPositive = false) {
     paragraphElementToInsert.classList.add('positive-text')
   }
   paragraphElementToInsert.appendChild(itemText)
-  foundWalletsWrapper.appendChild(paragraphElementToInsert)
+  resultWrapper.appendChild(paragraphElementToInsert)
 }
 
 function cleanLog(e) {
-  foundWalletsWrapper.innerHTML = ''
+  resultWrapper.innerHTML = ''
 }
 
 export function runSearch(e) {
@@ -48,7 +83,7 @@ function checkMagicByteForFile(fileLocation) {
     var buffer = Buffer.alloc(50);
     fs.read(fd, buffer, 0, 50, 0, function(err, num) {
       if(buffer.includes(BTC_WALLET_MAGIC_BYTES, 0, "hex")) {
-        printResult("Found a BTC wallet file: " + fileLocation, true)
+        printFoundWallet(fileLocation)
       }
     });
   });
