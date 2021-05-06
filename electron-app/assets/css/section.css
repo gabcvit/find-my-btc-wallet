@@ -82,6 +82,10 @@ section p {
   margin: 10px;
 }
 
+.found-wallet-wrapper:hover {
+  cursor: pointer;
+}
+
 .found-wallet-icon {
   width: 90px;
   height: 90px;

@@ -28,7 +28,7 @@ function printIconInFoundWallet(foundWalletWrapperElement) {
 
 function printTextNodesInFoundWallet(fileLocation, foundWalletWrapperElement) {
   const textNodesToAdd = [
-    {text: 'BTC Wallet found!',   class: 'found-wallet-title'},
+    {text: 'BTC Wallet found!', class: 'found-wallet-title'},
     {text: fileLocation,          class: 'found-wallet-location'},
     {text: 'Click here to open',  class: 'found-wallet-button'},
   ]
@@ -50,7 +50,15 @@ function printFoundWallet(fileLocation) {
   foundWalletWrapperElement = printIconInFoundWallet(foundWalletWrapperElement)
   foundWalletWrapperElement = printTextNodesInFoundWallet(fileLocation, foundWalletWrapperElement)
 
+  foundWalletWrapperElement.addEventListener('click', function() {
+    openFileLocation(fileLocation)
+  })
+
   resultWrapper.appendChild(foundWalletWrapperElement)
+}
+
+function openFileLocation(fileLocation) {
+  console.log(fileLocation)
 }
 
 function printResult(data, isPositive = false) {
