@@ -1,18 +1,22 @@
 nav {
-  width: 380px;
+  width: 250px;
   position: absolute;
   top: 18px;
   bottom: 18px;
   left: 0px;
 }
 
-nav header {
-  height: 400px;
+.nav-header {
+  width: 250px;
+  height: 50%;
+}
+
+.main-app-icon {
+  width: 100%;
 }
 
 .nav-item {
-  margin: 25px 0px;
-  
+  margin: 25px 0px; 
 }
 
 .nav-item button {

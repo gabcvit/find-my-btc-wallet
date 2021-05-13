@@ -5,14 +5,13 @@ section {
   transition: visibility 0s .12s linear , opacity .12s ease-in, transform .12s ease-in;
 
   position: absolute;
-  top: 50px;
-  right: 50px;
-  bottom: 50px;
-  width: calc(100% - 380px - 16px - 200px);
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: calc(100% - 250px - 16px - 200px);
   min-width: 400px;
 
-  background-color: #232228;
-  border-radius: 68px;
+  background-color: #161522;
   padding: 40px 100px;
   overflow-y: scroll;
 }
@@ -33,7 +32,7 @@ section p {
 .pretty-button {
   padding: 25px 50px;
   border-width: 0px;
-  border-radius: 19px;
+  border-radius: 10px;
   color: white;
   margin-right: 25px;
 }
@@ -45,21 +44,19 @@ section p {
 /* SEARCH SECTION */
 .filter-wrapper {
   padding: 50px 30px;
-  box-shadow: 30px 50px 50px 0px #131217;
-  background-color: #1B1A1F;
-  border: 1px solid transparent;
-  border-radius:28px;
+  background-color: #202231;
+  border-radius: 10px;
   margin: 35px 0px;
 }
 
-.filter-wrapper.yellow {
-  background: linear-gradient(135deg, #493A24, #1B1A1F,#1B1A1F,#1B1A1F) padding-box, /* this is the background gradient */
-    linear-gradient(135deg, #FFBA50, #1B1A1F,#1B1A1F,#1B1A1F) border-box; /* this is the border gradient */
+.bg-space-gradient {
+  background: linear-gradient(90deg, #0C93EC, #8567D8,#F139C3);
 }
 
-.filter-wrapper.green {
-  background: linear-gradient(135deg, #184345, #1B1A1F,#1B1A1F,#1B1A1F) padding-box, /* this is the background gradient */
-    linear-gradient(135deg, #04C0A9, #1B1A1F,#1B1A1F,#1B1A1F) border-box; /* this is the border gradient */
+.border-space-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, #202231, #202231) padding-box, /* this is the background gradient */
+    linear-gradient(90deg, #0C93EC, #8567D8,#F139C3) border-box; /* this is the border gradient */
 }
 
 .result-wrapper {
@@ -70,16 +67,12 @@ section p {
 }
 
 .found-wallet-wrapper {
-  padding: 20px;
-  background: linear-gradient(135deg, #493A24, #1B1A1F,#1B1A1F,#1B1A1F) padding-box, /* this is the background gradient */
-  linear-gradient(135deg, #FFBA50, #1B1A1F,#1B1A1F,#1B1A1F) border-box; /* this is the border gradient */
-  box-shadow: 30px 50px 50px 0px #131217;
-  background-color: #1B1A1F;
-  border: 1px solid transparent;
-  border-radius:28px;
-  width: 260px;
-  text-align: center;
+  padding: 0px;
+  background-color: #202231;
+  border-radius: 10px;
   margin: 10px;
+  height: 180px;
+  position: relative;
 }
 
 .found-wallet-wrapper:hover {
@@ -87,26 +80,49 @@ section p {
 }
 
 .found-wallet-icon {
-  width: 90px;
-  height: 90px;
+  width: 180px;
+  height: 180px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
 }
 
 .found-wallet-wrapper p {
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  text-align: left;
   color: white;
 }
 
 p.found-wallet-title {
-  font-size: 24px;
+  position: absolute;
+  bottom: 90px;
+  left: 180px;
+  right: calc(160px + 40px);
+  font-size: 30px;
+  vertical-align: top;
 }
 
 p.found-wallet-location {
-  font-size: 10px;
-  color: #79797C;
+  position: absolute;
+  top: 100px;
+  left: 180px;
+  right: calc(160px + 40px);
+  font-size: 18px;
+  color: #E3E3E3;
 }
 
 p.found-wallet-button {
+  position: absolute;
+  top: 40px;
+  bottom: 40px;
+  right: 40px;
+  width: 160px;
+  border-radius: 10px;
   font-size: 16px;
+  text-align: center;
+  line-height: calc(180px - 80px);
 }
 
 /* LOGS SECTION */

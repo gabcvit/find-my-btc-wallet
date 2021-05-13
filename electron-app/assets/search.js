@@ -28,16 +28,19 @@ function printIconInFoundWallet(foundWalletWrapperElement) {
 
 function printTextNodesInFoundWallet(fileLocation, foundWalletWrapperElement) {
   const textNodesToAdd = [
-    {text: 'BTC Wallet found!', class: 'found-wallet-title'},
-    {text: fileLocation,          class: 'found-wallet-location'},
-    {text: 'Click here to open',  class: 'found-wallet-button'},
+    {text: 'BTC Wallet found!', classes: ['found-wallet-title']},
+    {text: fileLocation,          classes: ['found-wallet-location']},
+    {text: 'Click here to open',  classes: ['found-wallet-button', 'bg-space-gradient']},
   ]
 
   textNodesToAdd.forEach(singleTextNodeToAdd => {
     const textNome = document.createTextNode(singleTextNodeToAdd.text)
     const paragraph = document.createElement("P")
     paragraph.appendChild(textNome)
-    paragraph.classList.add(singleTextNodeToAdd.class)
+    singleTextNodeToAdd.classes.forEach(singleClass => {
+      paragraph.classList.add(singleClass)
+    })
+    
     foundWalletWrapperElement.appendChild(paragraph)
   })
 
