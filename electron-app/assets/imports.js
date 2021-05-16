@@ -1,4 +1,5 @@
-import { initializeSearchElements } from "./search.js";
+import { initializeSearchElements } from "./js/search-filetype/search-filetype-controller.js";
+import { initializeResultWrapper } from "./js/found-wallet/found-wallet.js";
 
 const links = document.querySelectorAll('link[rel="import"]')
 
@@ -27,6 +28,7 @@ async function runAllImports() {
 
     Promise.all(promises).then((results) => {
       initializeSearchElements()
+      initializeResultWrapper()
     })
 
   // await Array.prototype.forEach.call(links, (link) => {
