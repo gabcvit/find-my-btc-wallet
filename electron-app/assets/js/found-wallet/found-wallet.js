@@ -1,4 +1,6 @@
 
+const {shell} = require('electron')
+
 var resultWrapper = null
 
 export function initializeResultWrapper () {
@@ -26,11 +28,11 @@ function printIconInFoundWallet(foundWalletWrapperElement) {
   return foundWalletWrapperElement
 }
 
-function printTextNodesInFoundWallet (fileLocation, foundWalletWrapperElement) {
+function printTextNodesInFoundWallet(fileLocation, foundWalletWrapperElement) {
   const textNodesToAdd = [
-    {text: 'BTC Wallet found!', classes: ['found-wallet-title']},
-    {text: fileLocation,          classes: ['found-wallet-location']},
-    {text: 'Click here to open',  classes: ['found-wallet-button', 'bg-space-gradient']},
+    {text: 'BTC Wallet found!',  classes: ['found-wallet-title']},
+    {text: fileLocation,         classes: ['found-wallet-location']},
+    {text: 'Click here to open', classes: ['found-wallet-button', 'bg-space-gradient']},
   ]
 
   textNodesToAdd.forEach(singleTextNodeToAdd => {
@@ -48,5 +50,5 @@ function printTextNodesInFoundWallet (fileLocation, foundWalletWrapperElement) {
 }
 
 function openFileLocation (fileLocation) {
-  console.log(fileLocation)
+  shell.showItemInFolder(fileLocation)
 }

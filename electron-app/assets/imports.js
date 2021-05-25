@@ -5,7 +5,6 @@ const links = document.querySelectorAll('link[rel="import"]')
 
 async function runAllImports() {
   var promises = []
-  console.log(links.length)
   for(let i = 0; i < links.length; i++) {
     promises.push(new Promise((resolve, reject) => {
       fetch(links[i].href)

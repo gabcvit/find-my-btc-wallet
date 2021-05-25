@@ -59,6 +59,13 @@ section p {
     linear-gradient(90deg, #0C93EC, #8567D8,#F139C3) border-box; /* this is the border gradient */
 }
 
+.border-space-gradient.inactive {
+  opacity: 0.3;
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, #202231, #202231) padding-box, /* this is the background gradient */
+    linear-gradient(90deg, #202231, #202231) border-box; /* this is the border gradient */
+}
+
 .result-wrapper {
   margin-top: 40px;
   flex-direction: row;

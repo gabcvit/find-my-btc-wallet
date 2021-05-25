@@ -1,6 +1,6 @@
 import { printFoundWallet } from '../found-wallet/found-wallet.js'
 import { FILE_EXTENSION_TO_FIND, BTC_WALLET_MAGIC_BYTES, DIRECTORY_TO_SEARCH } from './search-filetype.js'
-const { spawn } = require('child_process')
+
 const path = require('path')
 const fs = require('fs')
 
@@ -17,19 +17,9 @@ export function initializeSearchElements() {
   // TODO: forceStopButton.addEventListener('click', stopSearch)
 }
 
-function printResult(data, isPositive = false) {
-  const itemText = document.createTextNode(data)
-  const paragraphElementToInsert = document.createElement("P")
-  if(isPositive) {
-    paragraphElementToInsert.classList.add('positive-text')
-  }
-  paragraphElementToInsert.appendChild(itemText)
-}
-
 export function runSearch(e) {
   e.preventDefault()
   runFileExtensionSearch()
-  //runPrivateKeyRegexSearch()
 }
 
 function checkMagicByteForFile(fileLocation) {
@@ -47,13 +37,25 @@ function checkMagicByteForFile(fileLocation) {
   });
 }
 
-function runFileExtensionSearch() {
-  printResult('Searching for files with the extension "'+ FILE_EXTENSION_TO_FIND +'". Please wait...')
-  fromDir(DIRECTORY_TO_SEARCH, FILE_EXTENSION_TO_FIND)
-  printResult("Finishing search for file name")
+async function runFileExtensionSearch() {
+  updateButtonsState(true)
+  setTimeout(() => {
+    fromDir(DIRECTORY_TO_SEARCH, FILE_EXTENSION_TO_FIND)
+    updateButtonsState(false)
+  }, 500)
 }
 
-function fromDir(startPath, filter) {
+function updateButtonsState(isSearchRunning) {
+  if(isSearchRunning) {
+    runSearchButton.classList.add('inactive')
+    forceStopButton.classList.remove('inactive')
+  } else {
+    runSearchButton.classList.remove('inactive')
+    forceStopButton.classList.add('inactive')
+  }
+}
+
+async function fromDir(startPath, filter) {
   if (!fs.existsSync(startPath)){
       // console.log("no directory", startPath);
       return;
@@ -70,7 +72,7 @@ function fromDir(startPath, filter) {
       var filename = path.join(startPath,files[i]);
       var stat = fs.lstatSync(filename);
       if(stat.isDirectory()) {
-        fromDir(filename,filter); //recursive search
+        await fromDir(filename,filter); //recursive search
       }
       else if(filename.indexOf(filter)>=0) {
         checkMagicByteForFile(filename)
@@ -79,29 +81,3 @@ function fromDir(startPath, filter) {
   };
   }
 };
-
-function runPrivateKeyRegexSearch() {
-  const expressionToFind =  `${'"(\w{64})$"'}`
-  const ls = spawn('grep', ['-r', expressionToFind, DIRECTORY_TO_SEARCH]);
-  printResult("Searching for "+ expressionToFind +"... please wait")
-
-  ls.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-
-    data = "I found a 64 char long private key on a certain file located in: " + data + "\n\n, you might want to check if that file is a wallet file :)"
-    printResult(data)
-  });
-
-  ls.stderr.on('data', (data) => {
-    console.log(`stderr: ${data}`);
-  });
-
-  // code 0: Successful
-  // code 1: didn't find anything
-  ls.on('close', (code) => {
-    if(code == 1) {
-      printResult("Finished looking for 64 char long private keys, nothing was found yet")
-    }
-    console.log(`child process exited with code ${code}`);
-  });
-}
