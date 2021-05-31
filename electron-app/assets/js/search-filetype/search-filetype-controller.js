@@ -57,27 +57,21 @@ function updateButtonsState(isSearchRunning) {
 
 async function fromDir(startPath, filter) {
   if (!fs.existsSync(startPath)){
-      // console.log("no directory", startPath);
       return;
   }
 
-  try {
-    var files = fs.readdirSync(startPath);
-  } catch(e) {
-    // console.log('customError', e)
-  }
-
-  if(files) {
-    for(var i = 0; i < files.length; i++) {
-      var filename = path.join(startPath,files[i]);
-      var stat = fs.lstatSync(filename);
-      if(stat.isDirectory()) {
-        await fromDir(filename,filter); //recursive search
-      }
-      else if(filename.indexOf(filter)>=0) {
-        checkMagicByteForFile(filename)
-        // console.log('-- found: ',filename);
+  fs.readdir(startPath, async (err, files) => {
+    if(files) {
+      for(var i = 0; i < files.length; i++) {
+        var filename = path.join(startPath,files[i])
+        var stat = fs.lstatSync(filename)
+        if(stat.isDirectory()) {
+          fromDir(filename, filter)
+        }
+        else if(filename.indexOf(filter)>=0) {
+          checkMagicByteForFile(filename)
+        };
       };
-  };
-  }
+    }
+  })
 };
