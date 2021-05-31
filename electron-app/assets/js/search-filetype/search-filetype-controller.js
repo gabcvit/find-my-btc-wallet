@@ -25,7 +25,6 @@ export function runSearch(e) {
 function checkMagicByteForFile(fileLocation) {
   fs.open(fileLocation, 'r', function(status, fd) {
     if (status) {
-      // console.log(status.message);
       return;
     }
     var buffer = Buffer.alloc(50);

@@ -43,10 +43,35 @@ section p {
 
 /* SEARCH SECTION */
 .filter-wrapper {
-  padding: 50px 30px;
+  padding: 30px;
   background-color: #202231;
   border-radius: 10px;
   margin: 35px 0px;
+}
+
+input.location-input {
+  background-color: #161522;
+  color: #E3E3E3;
+  height: 30px;
+  border-radius: 5px;
+  border-width: 0px;
+  margin: 5px 0px;
+  padding-left: 7px;
+  width: 50%;
+}
+
+button.only-text {
+  background-color: transparent;
+  border-width: 0px;
+  padding: 5px;
+}
+
+button.gray-button {
+  color: #7F7F7F;
+}
+
+button.pink-button {
+  color: #F139C3;
 }
 
 .bg-space-gradient {

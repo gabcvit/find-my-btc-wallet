@@ -1,9 +1,12 @@
 <template class="task-template">
-  <section id="search-section" class="section js-section u-category-communication">
+  <section id="search-section" class="section js-section u-category-communication is-shown">
     <div>
       <h1>BTC Wallet Finder</h1>
-      <div class="filter-wrapper yellow">
+      <div class="filter-wrapper">
         <p>Search for all .dat files under the following directories:</p>
+        <div class="input-locations-wrapper"></div>
+        <button type="button" class="add-field-button only-text pink-button">Add new</button>
+        <button type="button" class="remove-field-button only-text gray-button">Remove last</button>
       </div>
       <div class="filter-wrapper green">
         <p>Run "findstr / grep" command under the following directories:</p>

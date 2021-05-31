@@ -1,5 +1,6 @@
 import { initializeSearchElements } from "./js/search-filetype/search-filetype-controller.js";
 import { initializeResultWrapper } from "./js/found-wallet/found-wallet.js";
+import { initializeDOMElements } from "./js/search-filetype/search-filetype-location-inputs-controller.js";
 
 const links = document.querySelectorAll('link[rel="import"]')
 
@@ -27,6 +28,7 @@ async function runAllImports() {
 
     Promise.all(promises).then((results) => {
       initializeSearchElements()
+      initializeDOMElements()
       initializeResultWrapper()
     })
 
