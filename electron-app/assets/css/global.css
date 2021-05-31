@@ -12,6 +12,15 @@ h1, a, p, span {
   color: white;
 }
 
+button {
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: visibility 0s .1s linear , opacity .1s ease-in, transform .1s ease-in;
+}
 
 .bg-black {
   background-color: #0C0B10;
