@@ -1,4 +1,5 @@
 import { printFoundWallet } from '../found-wallet/found-wallet.js'
+import { getAllLocations } from './search-filetype-location-inputs-controller.js'
 import { FILE_EXTENSION_TO_FIND, BTC_WALLET_MAGIC_BYTES, DIRECTORY_TO_SEARCH } from './search-filetype.js'
 
 const path = require('path')
@@ -38,8 +39,14 @@ function checkMagicByteForFile(fileLocation) {
 
 async function runFileExtensionSearch() {
   updateButtonsState(true)
+  let locationsToSearch = getAllLocations()
   setTimeout(() => {
-    fromDir(DIRECTORY_TO_SEARCH, FILE_EXTENSION_TO_FIND)
+    if(locationsToSearch.length > 0) {
+      locationsToSearch.forEach(singleLocationToSearch => {
+        fromDir(singleLocationToSearch, FILE_EXTENSION_TO_FIND)
+      })
+    }
+    
     updateButtonsState(false)
   }, 500)
 }

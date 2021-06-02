@@ -1,6 +1,5 @@
 import { DIRECTORY_TO_SEARCH } from "./search-filetype.js"
 
-
 const STYLE_DISPLAY_ATTRIBUTE_INVISIBLE = 'none'
 const STYLE_DISPLAY_ATTRIBUTE_VISIBLE = 'inline'
 
@@ -45,4 +44,13 @@ function updateRemoveButtonVisibility() {
   let childElementCount = locationInputsWrapperDiv.childElementCount
 
   removelocationInputButton.style.display = childElementCount > 0 ? STYLE_DISPLAY_ATTRIBUTE_VISIBLE : STYLE_DISPLAY_ATTRIBUTE_INVISIBLE
+}
+
+export function getAllLocations() {
+  let filteredLocations = []
+   locationInputsWrapperDiv.childNodes.forEach(singleNode => {
+    filteredLocations.push(singleNode.value)
+  })
+
+  return filteredLocations
 }
