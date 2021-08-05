@@ -60,6 +60,13 @@ input.location-input {
   width: 50%;
 }
 
+button.location-input-button {
+  color: #7F7F7F;
+  height: 30px;
+  background-color: transparent;
+  border-width: 0;
+}
+
 button.only-text {
   background-color: transparent;
   border-width: 0px;
